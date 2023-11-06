@@ -2,43 +2,42 @@
 
 ## Overview
 
-This repository contains the C++ implementation of the classic synchronization problem known as the producer-consumer (bounded-buffer) problem. The solution demonstrates the use of semaphores for synchronization and pthreads for multithreading in a POSIX environment.
+This C++ implementation tackles the classic synchronization challenge known as the producer-consumer problem. It employs semaphores for synchronization and pthreads for multithreading within a POSIX environment.
 
 ## Problem Description
 
-In the producer-consumer problem, a producer generates items and puts them onto a table (buffer), and a consumer picks up items from the table. The challenge is that the table can only hold a finite number of items - in this case, two items at the same time. If the table is full, the producer must wait until there is space available. Similarly, if the table is empty, the consumer must wait until an item is produced. The synchronization of the producer and consumer is managed using semaphores, ensuring that the producer and consumer do not access the buffer at the same time, thus avoiding race conditions.
+The producer-consumer scenario involves a producer placing items onto a buffer, referred to as a table, and a consumer removing these items. The table has a limited capacity, set to two items concurrently. The producer waits when the table is full, and the consumer waits when it is empty. Semaphores ensure that the producer and consumer access the table in a synchronized manner, preventing race conditions.
 
-## Files
+## Files Included
 
-- `producer.cpp`: Contains the implementation of the producer which generates items and places them into the buffer.
-- `consumer.cpp`: Contains the implementation of the consumer which takes items from the buffer.
+- `producer.cpp`: Implementation of the producer, responsible for generating items and adding them to the buffer.
+- `consumer.cpp`: Implementation of the consumer, responsible for removing items from the buffer.
 
 ## Compilation Instructions
 
-To compile the producer and consumer programs, use the following commands in your terminal:
+Use the following commands in the terminal to compile the producer and consumer programs:
 
-```sh
+
 g++ -std=c++11 -pthread producer.cpp -o producer
 g++ -std=c++11 -pthread consumer.cpp -o consumer
 
-
-
-//Execution Instructions
+Execution Instructions
+After compilation, run the programs concurrently with the following commands:
 ./producer &
 ./consumer &
 
-//Example Output
+Example Output
+The output illustrates the producer creating items and the consumer removing them:
 Produced: 0
 Consumed: 0
 Produced: 1
 Consumed: 1
+...
 
-//Design Decisions section
-- **Buffer Size**: The buffer is intentionally set to a capacity of two items, conforming to the assignment's specifications. This limit is established using a `#define` directive for its simplicity and directness.
+Design Decisions
+Buffer Size: Defined with a #define directive, the buffer size is limited to two items, as specified in the assignment.
+Synchronization: Semaphores synchronize access to the buffer, ensuring mutual exclusion and signaling buffer availability.
+Concurrency: POSIX threads (pthreads) enable the producer and consumer to execute concurrently, facilitating an efficient flow of operations.
 
-- **Synchronization**: Semaphores are employed to manage access to the buffer, ensuring that only one actor (producer or consumer) can modify the buffer at any given time, and to signal when the buffer is full or empty.
-
-- **Concurrency**: The implementation uses POSIX threads (pthreads) to enable the producer and consumer to operate in parallel, ensuring a smooth and efficient workflow.
-
-//Author
+Author
 Deanna Baccus
